@@ -103,7 +103,7 @@
     </div>
 
     <script>
-        // Default login for the "guest" account
+        // Simulate login for "guest" account on page load
         document.addEventListener('DOMContentLoaded', function () {
             login('guest', '');
         });
@@ -115,10 +115,7 @@
             document.getElementById('otherWebsiteButton').style.display = 'none';
         }
 
-        function login() {
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-
+        function login(username, password) {
             var validAccounts = {
                 'shadow': '2022',
                 'guest': ''
