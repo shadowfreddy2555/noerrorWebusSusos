@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #hiddenContent {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #111;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #hiddenContent p {
+            font-size: 1.5em;
+            margin: 10px;
+        }
+
+        #loginForm {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #loggedInMessage {
+            display: none;
+            margin-top: 20px;
+            color: green;
+        }
+
+        #loginButton,
+        #logoutButton,
+        #otherWebsiteButton {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        #logoutButton,
+        #otherWebsiteButton {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Welcome!</h1>
+        <button id="loginButton" onclick="showLoginForm()">Login</button>
+        <button id="logoutButton" onclick="logout()">Logout</button>
+        <button id="otherWebsiteButton" onclick="redirectToOtherWebsite()">Check out my other website</button>
+    </div>
+
+    <!-- Hidden content with credit text -->
+    <div id="hiddenContent">
+        <p>Made by Shadowfreddy. Credits to Glitchrat.</p>
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button onclick="login()">Login</button>
+    </div>
+
+    <!-- Logged In Message -->
+    <div id="loggedInMessage">
+        <p id="welcomeMessage"></p>
+        <button id="otherWebsiteButton" onclick="redirectToOtherWebsite()">Check out my other website</button>
+    </div>
+
+    <script>
+        // Default login for the "guest" account
+        document.addEventListener('DOMContentLoaded', function () {
+            login('guest', '');
+        });
+
+        function showLoginForm() {
+            document.getElementById('loginButton').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('logoutButton').style.display = 'none';
+            document.getElementById('otherWebsiteButton').style.display = 'none';
+        }
+
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            var validAccounts = {
+                'shadow': '2022',
+                'guest': ''
+            };
+
+            if (validAccounts.hasOwnProperty(username) && validAccounts[username] === password) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('loggedInMessage').style.display = 'block';
+                document.getElementById('hiddenContent').style.display = 'flex';
+                document.getElementById('logoutButton').style.display = 'block';
+                document.getElementById('otherWebsiteButton').style.display = 'block';
+                document.getElementById('welcomeMessage').innerText = 'Welcome ' + (username === 'shadow' ? 'Owner!' : username + '!');
+            } else {
+                alert('Invalid username or password. Try again.');
+            }
+        }
+
+        function logout() {
+            document.getElementById('loggedInMessage').style.display = 'none';
+            document.getElementById('hiddenContent').style.display = 'none';
+            document.getElementById('loginButton').style.display = 'block';
+            document.getElementById('logoutButton').style.display = 'none';
+            document.getElementById('otherWebsiteButton').style.display = 'none';
+            document.getElementById('loginForm').reset(); // Clear input fields
+        }
+
+        function redirectToOtherWebsite() {
+            window.location.href = 'https://shadowfreddy2555.github.io/cinemaweb/';
+        }
+    </script>
+</body>
+</html>
