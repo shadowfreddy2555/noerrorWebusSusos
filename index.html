@@ -43,7 +43,6 @@
         }
 
         #loginForm {
-            display: none;
             margin-top: 20px;
         }
 
@@ -75,7 +74,16 @@
 <body>
     <div>
         <h1>Welcome!</h1>
-        <button id="loginButton" onclick="showLoginForm()">Login</button>
+        <div id="loginForm">
+            <p>Please log in using the guest account:</p>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <button onclick="login()">Login</button>
+        </div>
         <button id="logoutButton" onclick="logout()">Logout</button>
         <button id="otherWebsiteButton" onclick="redirectToOtherWebsite()">Check out my other website</button>
     </div>
@@ -85,17 +93,6 @@
         <p>Made by Shadowfreddy. Credits to Glitchrat.</p>
     </div>
 
-    <!-- Login Form -->
-    <div id="loginForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button onclick="login()">Login</button>
-    </div>
-
     <!-- Logged In Message -->
     <div id="loggedInMessage">
         <p id="welcomeMessage"></p>
@@ -103,19 +100,10 @@
     </div>
 
     <script>
-        // Simulate login for "guest" account on page load
-        document.addEventListener('DOMContentLoaded', function () {
-            login('guest', '');
-        });
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
 
-        function showLoginForm() {
-            document.getElementById('loginButton').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('logoutButton').style.display = 'none';
-            document.getElementById('otherWebsiteButton').style.display = 'none';
-        }
-
-        function login(username, password) {
             var validAccounts = {
                 'shadow': '2022',
                 'guest': ''
@@ -129,17 +117,18 @@
                 document.getElementById('otherWebsiteButton').style.display = 'block';
                 document.getElementById('welcomeMessage').innerText = 'Welcome ' + (username === 'shadow' ? 'Owner!' : username + '!');
             } else {
-                alert('Invalid username or password. Try again.');
+                alert('Invalid username or password. Please try again.');
             }
         }
 
         function logout() {
             document.getElementById('loggedInMessage').style.display = 'none';
             document.getElementById('hiddenContent').style.display = 'none';
-            document.getElementById('loginButton').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'block';
             document.getElementById('logoutButton').style.display = 'none';
             document.getElementById('otherWebsiteButton').style.display = 'none';
-            document.getElementById('loginForm').reset(); // Clear input fields
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
         }
 
         function redirectToOtherWebsite() {
